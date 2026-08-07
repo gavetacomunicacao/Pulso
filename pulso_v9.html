@@ -14,7 +14,7 @@
   --border:#e2e0d5;--border2:#ccc9bb;
   --text:#191815;--t2:#6a6860;--t3:#a5a39c;
   --accent:#1c3150;--accent2:#2d5080;--accent-lite:#e8eef6;
-  --ig:#e1306c;--ig-bg:#fce8f0;
+  --ig:#D327F5;--ig-bg:#fce8f0;
   --fb:#1877f2;--fb-bg:#e8f0fd;
   --yt:#cc0000;--yt-bg:#ffe8e8;
   --tt:#111;--tt-bg:#ebebeb;
@@ -93,7 +93,7 @@ div>.slbl:first-child{margin-top:0}
 
 /* NET SECTIONS */
 .net-section{border-radius:var(--r-lg);border:1.5px solid;padding:1rem 1.1rem;margin-bottom:1rem}
-.net-ig{border-color:#f5c0d8;background:#fff9fc}
+.net-ig{border-color:#edd4f9;background:#fff9fc}
 .net-fb{border-color:#b8d0f9;background:#f9fbff}
 .net-yt{border-color:#f5b8b8;background:#fff8f8}
 .net-tt{border-color:#d0d0d0;background:#fafafa}
@@ -176,7 +176,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .anno-wrap.on{display:block}
 .relatorio-mode .plan-tarefas-block{display:none!important}
 .anno-lbl{font-size:10px;font-weight:600;color:var(--t3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:4px}
-.anno-ta{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;border:1px dashed var(--border2);border-radius:var(--r);padding:8px 10px;resize:vertical;min-height:120px;background:var(--s2);color:var(--text);line-height:1.5}
+.anno-ta{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;border:1px dashed var(--border2);border-radius:var(--r);padding:8px 10px;resize:none;overflow:hidden;min-height:120px;background:var(--s2);color:var(--text);line-height:1.5}
 .anno-ta:focus{outline:none;border-color:var(--accent2);background:#fff}
 .anno-ta::placeholder{color:var(--t3)}
 
@@ -214,12 +214,12 @@ tbody td{padding:8px 11px;vertical-align:middle}
 /* SUMÁRIO EXECUTIVO */
 .sumario-box{background:var(--accent-lite);border:1.5px solid var(--accent2);border-radius:var(--r-lg);padding:.85rem 1rem;margin-bottom:1.1rem}
 .sumario-box-lbl{font-size:11px;font-weight:600;color:var(--accent2);margin-bottom:.5rem;letter-spacing:.02em}
-.sumario-ta{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;border:none;border-radius:var(--r);padding:0;resize:vertical;min-height:180px;background:transparent;color:var(--text);line-height:1.7;outline:none}
+.sumario-ta{width:100%;font-family:'DM Sans',sans-serif;font-size:13px;border:none;border-radius:var(--r);padding:0;resize:none;overflow:hidden;min-height:225px;background:transparent;color:var(--text);line-height:1.7;outline:none}
 .sumario-ta::placeholder{color:var(--accent2);opacity:.5;font-style:italic}
 @media print{
   .sumario-box{background:#eef3fa!important;border-color:#1c3150!important;padding:.8rem 1rem;margin-bottom:.9rem;break-inside:avoid}
   .sumario-box-lbl{font-size:9px;color:#1c3150;margin-bottom:.4rem}
-  .sumario-ta{font-size:11px;min-height:120px;line-height:1.6;color:#191815}
+  .sumario-ta{font-size:11px;min-height:150px;line-height:1.6;color:#191815}
 }
 
 @media(max-width:900px){.row2,.row3{grid-template-columns:1fr}.net-kpis{grid-template-columns:repeat(2,1fr)}.page{padding:1rem}}
@@ -258,13 +258,22 @@ tbody td{padding:8px 11px;vertical-align:middle}
 <!-- FILTERS -->
 <div class="fbar">
   <div class="fg"><span class="flbl">Cliente</span><select id="fClient" onchange="render()"><option value="all">Todos</option></select></div>
-  <div class="fg"><span class="flbl">Mês</span><select id="fMes" onchange="render()">
-    <option value="all">Todos</option><option value="janeiro">Janeiro</option>
-    <option value="fevereiro">Fevereiro</option><option value="março">Março</option><option value="abril">Abril</option>
-    <option value="maio">Maio</option>
-    <option value="junho">Junho</option>
-    <option value="julho">Julho</option>
-  </select></div>
+  <div class="fg mes-dropdown-wrap">
+    <span class="flbl">Mês</span>
+    <div class="mes-dropdown" id="mesDropdown">
+      <button class="mes-btn" id="mesBtnToggle" onclick="toggleMesDropdown(event)">Todos <span class="mes-arrow">▾</span></button>
+      <div class="mes-panel" id="mesPanel">
+        <label class="mes-opt"><input type="checkbox" value="all" id="mesAll" checked onchange="onMesAllChange(this)"> Todos</label>
+        <label class="mes-opt"><input type="checkbox" value="janeiro" class="mes-cb" onchange="onMesCbChange()"> Janeiro</label>
+        <label class="mes-opt"><input type="checkbox" value="fevereiro" class="mes-cb" onchange="onMesCbChange()"> Fevereiro</label>
+        <label class="mes-opt"><input type="checkbox" value="março" class="mes-cb" onchange="onMesCbChange()"> Março</label>
+        <label class="mes-opt"><input type="checkbox" value="abril" class="mes-cb" onchange="onMesCbChange()"> Abril</label>
+        <label class="mes-opt"><input type="checkbox" value="maio" class="mes-cb" onchange="onMesCbChange()"> Maio</label>
+        <label class="mes-opt"><input type="checkbox" value="junho" class="mes-cb" onchange="onMesCbChange()"> Junho</label>
+        <label class="mes-opt"><input type="checkbox" value="julho" class="mes-cb" onchange="onMesCbChange()"> Julho</label>
+      </div>
+    </div>
+  </div>
   <div class="fg"><span class="flbl">Rede</span><select id="fNet" onchange="render()">
     <option value="all">Todas</option><option value="INSTAGRAM">Instagram</option>
     <option value="FACEBOOK">Facebook</option><option value="YOUTUBE">YouTube</option><option value="TIKTOK">TikTok</option>
@@ -294,8 +303,8 @@ tbody td{padding:8px 11px;vertical-align:middle}
   <div id="kpiRedeVisao" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:10px;margin-bottom:1rem"></div>
   
 
-  <div class="slbl">Outras entregas do período</div>
-  <div id="entregasGrid" class="entregas-grid"></div>
+  <div class="slbl visao-entregas-slbl">Outras entregas do período</div>
+  <div id="entregasGrid" class="entregas-grid visao-entregas-grid"></div>
   
 
   <div class="slbl pb-page">Posts e engajamento por mês</div>
@@ -332,14 +341,13 @@ tbody td{padding:8px 11px;vertical-align:middle}
 
   <div class="slbl pb-page">Top 6 posts por perfil</div>
   <div id="topVisaoGrid"></div>
-  <div class="anno-wrap" id="anno-evolucao"><div class="anno-lbl">Análise — evolução</div><textarea class="anno-ta" placeholder="Tendências de crescimento, picos de engajamento, variações mensais…"></textarea></div>
+  <div class="anno-wrap" id="anno-evolucao"><div class="anno-lbl">Análise do conteúdo</div><textarea class="anno-ta" style="min-height:360px" placeholder="Tendências de crescimento, picos de engajamento, variações mensais…"></textarea></div>
 
   <div class="slbl">Acesso às produções</div>
   <div class="drive-section">
     <div style="flex:1;min-width:260px">
       <div class="drive-label">Link da pasta no Google Drive</div>
       <input type="url" class="drive-input" id="driveUrl" placeholder="https://drive.google.com/drive/folders/..." oninput="syncDriveBtn()">
-      <div style="font-size:11px;color:var(--t3);margin-top:5px">No PDF exportado, vira um botão clicável para o cliente acessar todos os materiais do mês.</div>
     </div>
     <div style="display:flex;flex-direction:column;justify-content:flex-end">
       <a id="driveBtnPreview" href="#" target="_blank" class="drive-btn-print" style="display:none;margin-top:.5rem">
@@ -367,7 +375,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 
   <div class="slbl">Distribuição por rede</div>
   <div class="entregas-grid" style="grid-template-columns:repeat(4,1fr)">
-    <div class="entrega-card"><div class="entrega-icon" style="color:#e1306c">📸</div><div class="entrega-lbl">Instagram</div><div class="entrega-val" style="color:#e1306c">20</div><div class="entrega-sub">perfis · 2.119 posts</div></div>
+    <div class="entrega-card"><div class="entrega-icon" style="color:#D327F5">📸</div><div class="entrega-lbl">Instagram</div><div class="entrega-val" style="color:#D327F5">20</div><div class="entrega-sub">perfis · 2.119 posts</div></div>
     <div class="entrega-card"><div class="entrega-icon" style="color:#1877f2">👥</div><div class="entrega-lbl">Facebook</div><div class="entrega-val" style="color:#1877f2">14</div><div class="entrega-sub">perfis · 1.567 posts</div></div>
     <div class="entrega-card"><div class="entrega-icon" style="color:#333">🎵</div><div class="entrega-lbl">TikTok</div><div class="entrega-val" style="color:#333">9</div><div class="entrega-sub">perfis · 237 posts</div></div>
     <div class="entrega-card"><div class="entrega-icon" style="color:#cc0000">▶️</div><div class="entrega-lbl">YouTube</div><div class="entrega-val" style="color:#cc0000">6</div><div class="entrega-sub">perfis · 127 posts</div></div>
@@ -426,7 +434,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
         </div>
       </div>
       <span class="det-ta-lbl">Detalhamento</span>
-      <textarea class="det-ta" id="proj_1_ta" placeholder="Descreva o projeto: objetivo, ações realizadas, resultados obtidos, próximos passos…"></textarea>
+      <textarea class="det-ta" id="proj_1_ta" style="min-height:360px" placeholder="Descreva o projeto: objetivo, ações realizadas, resultados obtidos, próximos passos…"></textarea>
     </div>
     <div class="det-section" data-proj="2">
       <div class="det-header">
@@ -437,7 +445,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
         </div>
       </div>
       <span class="det-ta-lbl">Detalhamento</span>
-      <textarea class="det-ta" id="proj_2_ta" placeholder="Descreva o projeto: objetivo, ações realizadas, resultados obtidos, próximos passos…"></textarea>
+      <textarea class="det-ta" id="proj_2_ta" style="min-height:360px" placeholder="Descreva o projeto: objetivo, ações realizadas, resultados obtidos, próximos passos…"></textarea>
     </div>
   </div>
 </div>
@@ -454,7 +462,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .det-num-input{font-family:'DM Mono',monospace;font-size:20px;font-weight:700;color:var(--accent);width:80px;border:1px solid var(--border);border-radius:var(--r);padding:4px 10px;background:var(--s2);text-align:center}
 .det-num-input:focus{outline:none;border-color:var(--accent2);background:#fff}
 .det-num-unit{font-size:11px;color:var(--t3)}
-.det-ta{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;resize:vertical;min-height:80px;background:var(--s2);color:var(--text);line-height:1.6}
+.det-ta{width:100%;font-family:'DM Sans',sans-serif;font-size:12px;border:1px solid var(--border);border-radius:var(--r);padding:9px 11px;resize:none;overflow:hidden;min-height:120px;background:var(--s2);color:var(--text);line-height:1.6}
 .det-ta:focus{outline:none;border-color:var(--accent2);background:#fff}
 .det-ta::placeholder{color:var(--t3)}
 .det-proj-title{font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;color:var(--accent);border:none;border-bottom:1.5px solid var(--border);background:transparent;width:100%;padding:2px 0 4px;outline:none;margin-bottom:2px}
@@ -512,7 +520,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
   /* ── SECTION LABELS ── */
   .slbl{font-size:8.5px;font-weight:700;letter-spacing:.08em;color:#a5a39c;
     text-transform:uppercase;margin:.8rem 0 .4rem;border:none}
-  .pb-page{page-break-before:always;padding-top:1.8cm;margin-top:0}
+  .pb-page{page-break-before:always;margin-top:0;padding-top:1.8cm;padding-bottom:.3rem}
   .{page-break-before:always;padding-top:1.8cm}
 
   /* ── SECTION DIVIDER for Temas vs Conteúdo ── */
@@ -572,7 +580,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
   /* ── NET SECTIONS ── */
   .net-section{background:#fff!important;border:1.5px solid!important;box-shadow:none!important;
     border-radius:6px;padding:.7rem .8rem;margin-bottom:.7rem;break-inside:avoid}
-  .net-ig{border-color:#f5c0d8!important}
+  .net-ig{border-color:#edd4f9!important}
   .net-fb{border-color:#b8d0f9!important}
   .net-yt{border-color:#f5b8b8!important}
   .net-tt{border-color:#d0d0d0!important}
@@ -636,7 +644,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
   .det-num-row{margin-bottom:.5rem}
   .det-num-lbl{font-size:10px}
   .det-num-val{font-size:20px;font-weight:700;color:#1c3150;font-family:'DM Mono',monospace}
-  .det-ta{min-height:50px;font-size:10px;padding:6px 8px}
+  .det-ta{min-height:75px;font-size:10px;padding:6px 8px}
 
   /* show numeric value span in print, hide input */
   .det-num-input{display:none!important}
@@ -655,6 +663,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 
   /* ── RELATÓRIO: hide Monitor Sindical and Top Posts ── */
   #pConteudo,#pPosts{display:none!important}
+  .visao-entregas-slbl,.visao-entregas-grid{display:none!important}
   #pPlanejamento{display:none!important}
   #pDetalhamento{page-break-before:always;padding-top:1.8cm}
   .det-section[data-empty]{display:none!important}
@@ -770,7 +779,7 @@ const ML={janeiro:'Jan',fevereiro:'Fev','março':'Mar',abril:'Abr',maio:'Mai',ju
 const CLIENTS=['ASSIN','Normando Rodrigues','Sindaema ES','Sindipetro Amazonas','Sindipetro ES','Sindipetro RS','Sindipúblicos ES'];
 const NETS=['INSTAGRAM','FACEBOOK','YOUTUBE','TIKTOK'];
 const NL={INSTAGRAM:'Instagram',FACEBOOK:'Facebook',YOUTUBE:'YouTube',TIKTOK:'TikTok'};
-const NC={INSTAGRAM:'#e1306c',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
+const NC={INSTAGRAM:'#D327F5',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
 const CC={'ASSIN':'#7c3aed','Maurício Abdalla':'#dc2626','Normando Rodrigues':'#ea580c','Sindaema ES':'#059669','Sindipetro Amazonas':'#2563eb','Sindipetro ES':'#1c3150','Sindipetro RS':'#0ea5e9','Sindipúblicos ES':'#4f46e5'};
 const TC={'Reel':'#15803d','Post/Foto':'#1d4ed8','TikTok':'#555','Vídeo':'#b45309','Outro':'#9ca3af'};
 const TEMA_C={'Petróleo & Petrobras':'#1c3150','Privatização':'#374151','Direitos Trabalhistas':'#2563eb','Greve & Salário':'#7c3aed','Político':'#dc2626','Sindical':'#059669','Saúde & Segurança':'#b45309','Meio Ambiente':'#15803d','Outros':'#9ca3af'};
@@ -815,9 +824,42 @@ function fmt(n){if(!n||isNaN(n))return'0';n=+n;if(n>=1e6)return(n/1e6).toFixed(1
 function pct(n){return(n*100).toFixed(1)+'%';}
 function nbHtml(n){const cls={INSTAGRAM:'nb-ig',FACEBOOK:'nb-fb',YOUTUBE:'nb-yt',TIKTOK:'nb-tt'}[n]||'';return`<span class="nb ${cls}">${NL[n]||n}</span>`;}
 function pillHtml(t){const cls=TP_CLASS[t]||'tp-outro';return`<span class="type-pill ${cls}">${t}</span>`;}
-function getF(){return{client:document.getElementById('fClient').value,mes:document.getElementById('fMes').value,net:document.getElementById('fNet').value};}
-function fNetM(f){return NET_M.filter(r=>(f.client==='all'||r.c===f.client)&&(f.mes==='all'||r.m===f.mes)&&(f.net==='all'||r.n===f.net));}
-function updateCtx(f){const p=[];p.push(f.client==='all'?'Todos os clientes':f.client);p.push(f.mes==='all'?'Jan–Jul 2026':f.mes.charAt(0).toUpperCase()+f.mes.slice(1));if(f.net!=='all')p.push(NL[f.net]);document.getElementById('bCtx').textContent=p.join(' · ');}
+function getMeses(){
+  const allCb=document.getElementById('mesAll');
+  if(!allCb||allCb.checked)return'all';
+  const cbs=[...document.querySelectorAll('.mes-cb:checked')];
+  return cbs.length===0?'all':cbs.map(cb=>cb.value);
+}
+function getF(){return{client:document.getElementById('fClient').value,mes:getMeses(),net:document.getElementById('fNet').value};}
+function toggleMesDropdown(e){e.stopPropagation();document.getElementById('mesPanel').classList.toggle('open');}
+function onMesAllChange(cb){
+  document.querySelectorAll('.mes-cb').forEach(c2=>c2.checked=false);
+  cb.checked=true;
+  updateMesBtn();render();
+}
+function onMesCbChange(){
+  const cbs=[...document.querySelectorAll('.mes-cb:checked')];
+  document.getElementById('mesAll').checked=cbs.length===0;
+  updateMesBtn();render();
+}
+function updateMesBtn(){
+  const cbs=[...document.querySelectorAll('.mes-cb:checked')];
+  const ML2={janeiro:'Jan',fevereiro:'Fev','março':'Mar',abril:'Abr',maio:'Mai',junho:'Jun',julho:'Jul'};
+  const lbl=cbs.length===0?'Todos':cbs.map(c=>ML2[c.value]||c.value).join(', ');
+  const btn=document.getElementById('mesBtnToggle');
+  if(btn)btn.innerHTML=lbl+' <span class="mes-arrow">▾</span>';
+}
+document.addEventListener('click',()=>document.getElementById('mesPanel')?.classList.remove('open'));
+function mesMatch(m,fmes){return fmes==='all'||(Array.isArray(fmes)?fmes.includes(m):fmes===m);}
+function fNetM(f){return NET_M.filter(r=>(f.client==='all'||r.c===f.client)&&mesMatch(r.m,f.mes)&&(f.net==='all'||r.n===f.net));}
+function updateCtx(f){
+  const ML2={janeiro:'Jan',fevereiro:'Fev','março':'Mar',abril:'Abr',maio:'Mai',junho:'Jun',julho:'Jul'};
+  const p=[];
+  p.push(f.client==='all'?'Todos os clientes':f.client);
+  p.push(f.mes==='all'?'Jan–Jul 2026':Array.isArray(f.mes)?f.mes.map(m=>ML2[m]).join(', '):f.mes.charAt(0).toUpperCase()+f.mes.slice(1));
+  if(f.net!=='all')p.push(NL[f.net]);
+  document.getElementById('bCtx').textContent=p.join(' · ');
+}
 function initFilters(){const s=document.getElementById('fClient');CLIENTS.forEach(c=>{const o=document.createElement('option');o.value=o.textContent=c;s.appendChild(o);});}
 
 function render(){
@@ -834,7 +876,8 @@ function render(){
 function injectPrintHeaders(){
   const f=getF();
   const clientLabel=f.client==='all'?'Todos os clientes':f.client;
-  const mesLabel=f.mes==='all'?'Janeiro – Julho 2026':f.mes.charAt(0).toUpperCase()+f.mes.slice(1)+' 2026';
+  const ML2j={janeiro:'Jan',fevereiro:'Fev','março':'Mar',abril:'Abr',maio:'Mai',junho:'Jun',julho:'Jul'};
+  const mesLabel=f.mes==='all'?'Janeiro – Julho 2026':Array.isArray(f.mes)?f.mes.map(m=>ML2j[m]).join(', ')+' 2026':f.mes.charAt(0).toUpperCase()+f.mes.slice(1)+' 2026';
   const tabNames={'pVisao':'Visão Geral','pConteudo':'Monitor Sindical','pPosts':'Top Posts','pDetalhamento':'Detalhamento de Ações','pPlanejamento':'Planejamento'};
   document.querySelectorAll('.page').forEach((page)=>{
     let existing=page.querySelector('.print-page-header');
@@ -866,7 +909,7 @@ function renderVisao(f){
   const sumFol=(m)=>NET_M.filter(r=>r.m===m&&(f.client==='all'||r.c===f.client)&&(f.net==='all'||r.n===f.net)&&r.f>0).reduce((a,r)=>a+r.f,0);
   const sumEng=(m)=>NET_M.filter(r=>r.m===m&&(f.client==='all'||r.c===f.client)&&(f.net==='all'||r.n===f.net)).reduce((a,r)=>a+r.l+r.co,0);
   // Current = selected month or last available; reference = always the month before
-  const curMes=f.mes==='all'?MESES[MESES.length-1]:f.mes;
+  const curMes=f.mes==='all'?MESES[MESES.length-1]:(Array.isArray(f.mes)?f.mes[f.mes.length-1]:f.mes);
   const refMes=prevMes(curMes);
   const fCur=sumFol(curMes), fRef=refMes?sumFol(refMes):0;
   const eCur=sumEng(curMes), eRef=refMes?sumEng(refMes):0;
@@ -893,7 +936,7 @@ function renderVisao(f){
     <div class="kpi"><div class="kpi-lbl">Cresc. de seguidores</div><div class="kpi-val" style="color:${gColor}">${gSign}${gRate.toFixed(1)}%</div><div class="kpi-sub">${gLabel}</div></div>`;
 
   // ── Network breakdown KPIs ──
-  const netColsV={INSTAGRAM:'#e1306c',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
+  const netColsV={INSTAGRAM:'#D327F5',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
   const netBgV={INSTAGRAM:'#fff0f5',FACEBOOK:'#f0f5ff',YOUTUBE:'#fff0f0',TIKTOK:'#f5f5f5'};
   const activeNetsV=f.net==='all'?NETS:[f.net];
   document.getElementById('kpiRedeVisao').innerHTML=activeNetsV.map(net=>{
@@ -975,7 +1018,7 @@ function renderVisao(f){
       <div class="entrega-sub">projeto${projCount>1?'s':''} no período</div>
     </div>`:'');
 
-  const meses=f.mes==='all'?MESES:[f.mes];
+  const meses=f.mes==='all'?MESES:(Array.isArray(f.mes)?f.mes:[f.mes]);
   const activeNets=f.net==='all'?NETS:[f.net];
   // Posts chart — one bar per network per month
   const postDS=activeNets.map(net=>{
@@ -999,10 +1042,10 @@ function renderVisao(f){
   const evClients=f.client==='all'?CLIENTS:[f.client];
   const evNets=f.net==='all'?NETS:[f.net];
   // Engagement rate per month per client: (likes+comments)/followers*100
-  const netColorsER={INSTAGRAM:'#e1306c',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
+  const netColorsER={INSTAGRAM:'#D327F5',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
   const activeNetsER=f.net==='all'?NETS:[f.net];
   const erDS=activeNetsER.map(net=>{
-    const pts=MESES.map(m=>{
+    const pts=MESES.map(m=>{if(f.mes!=='all'&&!mesMatch(m,f.mes))return null;
       const rows=NET_M.filter(r=>r.n===net&&r.m===m&&(f.client==='all'||r.c===f.client)&&r.f>0);
       const eng=rows.reduce((a,r)=>a+r.l+r.co,0);
       const fol=rows.reduce((a,r)=>a+r.f,0);
@@ -1015,7 +1058,7 @@ function renderVisao(f){
   document.getElementById('legFolVisao').innerHTML=erDS.map(ds=>'<div class="leg-i"><div class="leg-dot" style="background:'+(netColorsER[Object.keys(NL).find(k=>NL[k]===ds.label)]||'#888')+'"></div>'+ds.label+'</div>').join('');
   mkChart('cFolVisao',{type:'line',data:{labels:MESES.map(m=>ML[m]),datasets:erDS},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false},tooltip:{callbacks:{label:ctx=>ctx.dataset.label+': '+ctx.parsed.y+'%'}}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>v+'%'},grid:{color:'rgba(0,0,0,.05)'}}}}});
   // ── Monthly follower evolution by platform ──
-  const netColorsF={INSTAGRAM:'#e1306c',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
+  const netColorsF={INSTAGRAM:'#D327F5',FACEBOOK:'#1877f2',YOUTUBE:'#cc0000',TIKTOK:'#333'};
   const activeNetsF=f.net==='all'?NETS:[f.net];
   const folDS=activeNetsF.map(net=>{
     const vals=MESES.map(m=>{
@@ -1033,7 +1076,7 @@ function renderVisao(f){
   const mesMapV={janeiro:'2026-01',fevereiro:'2026-02','março':'2026-03',abril:'2026-04',maio:'2026-05',junho:'2026-06',julho:'2026-07'};
   const mPfxV=f.mes!=='all'?(mesMapV[f.mes]||''):'';
   document.getElementById('topVisaoGrid').innerHTML=evClients.map(cli=>{
-    const posts=TOP_POSTS.filter(p=>p.c===cli&&(!mPfxV||p.d.startsWith(mPfxV))).sort((a,b)=>b.r-a.r).slice(0,6);
+    const posts=TOP_POSTS.filter(p=>p.c===cli&&(f.mes==='all'||(Array.isArray(f.mes)?f.mes.some(m=>{const mm={janeiro:'2026-01',fevereiro:'2026-02','março':'2026-03',abril:'2026-04',maio:'2026-05',junho:'2026-06',julho:'2026-07'};return p.d.startsWith(mm[m]||'');}):p.d.startsWith(mPfxV)))).sort((a,b)=>b.r-a.r).slice(0,6);
     if(!posts.length) return '';
     return `<div style="margin-bottom:.9rem">
       <div style="display:flex;align-items:center;gap:7px;margin-bottom:.5rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)">
@@ -1074,7 +1117,7 @@ function renderConteudo(f){
 
   // Aggregate themes from MS_DATA.theme_month filtered by month
   const themeAgg={};
-  MS_DATA.theme_month.filter(r=>!mPfx||r.mes===f.mes).forEach(r=>{
+  MS_DATA.theme_month.filter(r=>!mPfx||mesMatch(r.mes,f.mes)).forEach(r=>{
     if(!themeAgg[r.tema])themeAgg[r.tema]={tema:r.tema,posts:0,reactions:0};
     themeAgg[r.tema].posts+=r.posts;
     themeAgg[r.tema].reactions+=r.reactions;
@@ -1105,7 +1148,8 @@ function renderConteudo(f){
   mkChart('cMSTypeAvg',{type:'bar',data:{labels:typeF.map(r=>r.post_type),datasets:[{data:typeF.map(r=>Math.round(r.avg)),backgroundColor:typeF.map(r=>TC2[r.post_type]||'#888'),borderRadius:4}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{x:{grid:{display:false}},y:{ticks:{callback:v=>fmt(v)},grid:{color:'rgba(0,0,0,.05)'}}}}});
 
   // Top posts
-  const msFiltered=MS_DATA.posts.filter(p=>!mPfx||p.date.startsWith(mPfx));
+  const dateToMes={'2026-01':'janeiro','2026-02':'fevereiro','2026-03':'março','2026-04':'abril','2026-05':'maio','2026-06':'junho','2026-07':'julho'};
+  const msFiltered=MS_DATA.posts.filter(p=>f.mes==='all'||mesMatch(dateToMes[p.date.slice(0,7)],f.mes));
   const netEmoji3={INSTAGRAM:'📸',FACEBOOK:'👥',YOUTUBE:'▶️',TIKTOK:'🎵'};
   document.getElementById('msTopPosts').innerHTML=msFiltered.slice(0,9).map((p,i)=>`
     <div class="pcard">
@@ -1132,7 +1176,7 @@ function renderPosts(f){
     const posts=TOP_POSTS.filter(p=>
       p.c===client&&
       (f.net==='all'||p.n===f.net)&&
-      (!mPfxP||p.d.startsWith(mPfxP))
+      (f.mes==='all'||(Array.isArray(f.mes)?f.mes.some(m=>{const mesMapX={janeiro:'2026-01',fevereiro:'2026-02','março':'2026-03',abril:'2026-04',maio:'2026-05',junho:'2026-06',julho:'2026-07'};return p.d.startsWith(mesMapX[m]||'');}):(p.d.startsWith(mPfxP))))
     ).sort((a,b)=>b.r-a.r).slice(0,10);
     if(!posts.length)return;
     html+=`<div class="profile-block"><div class="profile-block-header"><strong class="profile-block-name">${client}</strong><span style="font-size:11px;color:var(--t3);margin-left:8px">— top ${posts.length} posts ${mPfxP?'do mês':'do período'}</span></div><div class="pgrid" style="grid-template-columns:repeat(auto-fill,minmax(280px,1fr))">${posts.map((p,i)=>`<div class="pcard"><div style="padding:.5rem .7rem .3rem;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:center">${nbHtml(p.n)}${p.link?`<a class="pcard-post-link" style="position:static;font-size:11px" href="${p.link}" target="_blank">Ver post →</a>`:''}</div><div class="pcard-body"><div class="pcard-top"><div><div class="pcard-badges">${pillHtml(p.type)}</div><div class="pcard-date">${p.d}</div></div><span class="pcard-rank">#${i+1}</span></div><div class="pcard-msg">${p.msg.slice(0,150)}${p.msg.length>150?'…':''}</div><div class="pcard-stats"><div class="pcard-stat">❤️ ${fmt(p.l)}</div><div class="pcard-stat">💬 ${fmt(p.co)}</div><div class="pcard-stat">📊 ${fmt(p.r)}</div></div></div></div>`).join('')}</div></div>`;
@@ -1293,7 +1337,7 @@ function renderPlanejamento(){
   const fGlobal = gf.client;
   // Month filter: match by data prefix
   const mesMapPl={janeiro:'2026-01',fevereiro:'2026-02','março':'2026-03',abril:'2026-04',maio:'2026-05',junho:'2026-06',julho:'2026-07'};
-  const mPfxPl = gf.mes!=='all'?(mesMapPl[gf.mes]||''):'';
+  const mPfxPl = gf.mes==='all'?'':(Array.isArray(gf.mes)?'':(mesMapPl[gf.mes]||''));
 
   const tasks = PLAN_DATA_LIVE.filter(t =>
     (fSt==='all'||t.status===fSt) &&
